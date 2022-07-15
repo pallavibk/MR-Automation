@@ -48,7 +48,7 @@ public class DataExtractor {
             String[] numArr = total_item.split(" of ");
             int totalCount = Integer.parseInt(numArr[numArr.length - 1]);
             writeToJsonFile(generateCandidateList(totalCount));
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | InterruptedException e) {
             System.out.println("Failed to create the chrome driver");
             e.printStackTrace();
         } finally {
@@ -71,7 +71,7 @@ public class DataExtractor {
     }
 
     // Method generates the list of candidate objects
-    private static List<Candidate> generateCandidateList(int totalCount) {
+    private static List<Candidate> generateCandidateList(int totalCount) throws InterruptedException {
         List<Candidate> retList = new ArrayList<>(totalCount);
         int currCount = 0;
         Integer currPageNo = 1;
@@ -118,6 +118,7 @@ public class DataExtractor {
             System.out.println("Waiting for next page to load");
             waitObj.until(ExpectedConditions.attributeToBe(currPageField, "value", (++currPageNo).toString()));
             System.out.println("Next Page loaded");
+            Thread.sleep(5000);
         }
         return retList;
     }
