@@ -89,6 +89,9 @@ public class DataExtractor {
 
                 // extract the job stages and history
                 currCandidate.setJobStages(driver.findElement(By.xpath("//div[@class='x-grid-item-container']/table[" + idx + "]//div[@class='history-wrapper-body']/p")).getText());
+
+                waitObj.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class='x-grid-item-container']/table[" + idx + "]//div[@class='history-wrapper-body']/span")));
+
                 List<WebElement> historyElements = driver.findElements(By.xpath("//div[@class='x-grid-item-container']/table[" + idx + "]//div[@class='history-wrapper-body']/span"));
                 StringBuilder historyBldr = new StringBuilder();
                 historyElements.forEach(ele -> historyBldr.append(ele.getText()).append(" "));
