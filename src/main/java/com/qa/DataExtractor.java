@@ -152,9 +152,9 @@ public class DataExtractor {
     }
 
     private static List<Pack> getOnboardingData() {
-        waitObj.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Onboard']/ancestor::a")));
-        retryingElementClick("//span[text()='Onboard']/ancestor::a");
-        waitObj.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'START ONBOARDING')]")));
+        waitObj.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Packs']/ancestor::a")));
+        retryingElementClick("//span[text()='Packs']/ancestor::a");
+        waitObj.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//span[contains(text(),'START NEW PACK')])[1]")));
         // Find out if the list of onboarding docs is present
         List<WebElement> packElements = driver.findElements(By.xpath("(//span[@class='ro-listing-grid'])"));
         if (packElements == null || packElements.isEmpty()) {
@@ -164,7 +164,7 @@ public class DataExtractor {
         for (int idx = 1; idx <= packElements.size(); idx++) {
             Pack pack = new Pack();
             pack.setStatus(driver.findElement(By.xpath("(//span[@class='ro-listing-grid'])["+idx+"]/strong/b")).getText());
-            pack.setProgress(driver.findElement(By.xpath("(//span[@class='ro-listing-grid'])["+idx+"]/strong/strong")).getText().split("\\|")[1].trim());
+            pack.setProgress(driver.findElement(By.xpath("(//span[@class='ro-listing-grid'])["+idx+"]/strong/strong")).getText().trim());
             pack.setName(driver.findElement(By.xpath("((//span[@class='ro-listing-grid'])["+idx+"]//strong[@class='ro-pack-info-ui'])[1]")).getText());
             pack.setCreatedDate(driver.findElement(By.xpath("((//span[@class='ro-listing-grid'])["+idx+"]//strong[@class='ro-pack-info-ui'])[2]")).getText());
             pack.setPosition(driver.findElement(By.xpath("((//span[@class='ro-listing-grid'])["+idx+"]//strong[@class='ro-pack-info-ui'])[3]")).getText());
